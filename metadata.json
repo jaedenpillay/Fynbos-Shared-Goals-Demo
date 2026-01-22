@@ -1,0 +1,5 @@
+{
+  "name": "Fynbos Shared Goals Demo",
+  "description": "A high-fidelity clickable prototype for the Shared Goals feature in the Fynbos Money platform, featuring progress tracking, contribution logic, and goal adjustment rules.",
+  "requestFramePermissions": []
+}
