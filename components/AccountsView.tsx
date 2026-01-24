@@ -6,9 +6,12 @@ import { View, SharedGoal } from '../types';
 interface AccountsViewProps {
   navigateTo: (view: View, id?: string) => void;
   sharedGoals: SharedGoal[];
+  isPrivateMode: boolean;
 }
 
-export const AccountsView: React.FC<AccountsViewProps> = ({ navigateTo, sharedGoals }) => {
+export const AccountsView: React.FC<AccountsViewProps> = ({ navigateTo, sharedGoals, isPrivateMode }) => {
+  const blurClass = isPrivateMode ? "blur-md select-none opacity-90" : "";
+
   return (
     <div className="px-6 space-y-6 pt-4">
       {/* Filters (Mock) */}
@@ -23,8 +26,8 @@ export const AccountsView: React.FC<AccountsViewProps> = ({ navigateTo, sharedGo
       <div className="space-y-4">
         <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest">Personal</h3>
         <div className="space-y-3">
-          <AccountCard title="Cash" balance="R 12,400" icon={<PiggyBank className="w-5 h-5 text-gray-600"/>} iconBg="bg-gray-100" />
-          <AccountCard title="Emergency Fund" balance="R 45,000" icon={<Leaf className="w-5 h-5 text-green-600"/>} iconBg="bg-green-50" />
+          <AccountCard title="Cash" balance="R 12,400" icon={<PiggyBank className="w-5 h-5 text-gray-600"/>} iconBg="bg-gray-100" isPrivateMode={isPrivateMode} />
+          <AccountCard title="Emergency Fund" balance="R 45,000" icon={<Leaf className="w-5 h-5 text-green-600"/>} iconBg="bg-green-50" isPrivateMode={isPrivateMode} />
         </div>
       </div>
 
@@ -57,8 +60,8 @@ export const AccountsView: React.FC<AccountsViewProps> = ({ navigateTo, sharedGo
                   </div>
                 </div>
                 <div className="text-right">
-                  <div className="text-base font-bold text-gray-900">R {goal.totalSaved.toLocaleString()}</div>
-                  <div className="text-[10px] text-gray-400">Total target R {goal.targetAmount.toLocaleString()}</div>
+                  <div className={`text-base font-bold text-gray-900 transition-all duration-300 ${blurClass}`}>R {goal.totalSaved.toLocaleString()}</div>
+                  <div className={`text-[10px] text-gray-400 transition-all duration-300 ${blurClass}`}>Total target R {goal.targetAmount.toLocaleString()}</div>
                 </div>
               </div>
 
@@ -95,7 +98,7 @@ export const AccountsView: React.FC<AccountsViewProps> = ({ navigateTo, sharedGo
   );
 };
 
-const AccountCard = ({ title, balance, icon, iconBg }: { title: string, balance: string, icon: React.ReactNode, iconBg: string }) => (
+const AccountCard = ({ title, balance, icon, iconBg, isPrivateMode }: { title: string, balance: string, icon: React.ReactNode, iconBg: string, isPrivateMode: boolean }) => (
   <div className="bg-white p-4 rounded-[20px] fynbos-shadow border border-gray-50 flex items-center justify-between">
     <div className="flex items-center gap-3">
       <div className={`w-10 h-10 rounded-full flex items-center justify-center ${iconBg}`}>
@@ -103,6 +106,6 @@ const AccountCard = ({ title, balance, icon, iconBg }: { title: string, balance:
       </div>
       <span className="text-sm font-semibold text-gray-800">{title}</span>
     </div>
-    <span className="text-sm font-semibold text-gray-900">{balance}</span>
+    <span className={`text-sm font-semibold text-gray-900 transition-all duration-300 ${isPrivateMode ? "blur-md select-none opacity-90" : ""}`}>{balance}</span>
   </div>
 );

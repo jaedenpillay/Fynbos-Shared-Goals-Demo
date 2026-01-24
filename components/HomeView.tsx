@@ -1,15 +1,17 @@
 
 import React from 'react';
-import { Info, Plus, ChevronRight, PiggyBank, Leaf, LayoutGrid } from 'lucide-react';
+import { Info, Plus, ChevronRight, PiggyBank, Leaf, LayoutGrid, TrendingUp } from 'lucide-react';
 import { View, SharedGoal } from '../types';
 
 interface HomeViewProps {
   navigateTo: (view: View, id?: string) => void;
   sharedGoals: SharedGoal[];
+  isPrivateMode: boolean;
 }
 
-export const HomeView: React.FC<HomeViewProps> = ({ navigateTo, sharedGoals }) => {
+export const HomeView: React.FC<HomeViewProps> = ({ navigateTo, sharedGoals, isPrivateMode }) => {
   const totalPortfolio = 125000 + sharedGoals.reduce((acc, g) => acc + g.totalSaved, 0);
+  const blurClass = isPrivateMode ? "blur-md select-none opacity-90" : "";
 
   return (
     <div className="px-6 space-y-6 pt-2">
@@ -18,8 +20,8 @@ export const HomeView: React.FC<HomeViewProps> = ({ navigateTo, sharedGoals }) =
         <div className="flex flex-col gap-1">
           <span className="text-gray-500 text-sm font-medium">Portfolio</span>
           <div className="flex items-center gap-3">
-            <h2 className="text-3xl font-bold text-gray-900">R {totalPortfolio.toLocaleString('en-ZA')},00</h2>
-            <div className="bg-green-50 text-green-600 text-xs font-semibold px-2 py-1 rounded-full">+ R 12,450,00</div>
+            <h2 className={`text-3xl font-bold text-gray-900 transition-all duration-300 ${blurClass}`}>R {totalPortfolio.toLocaleString('en-ZA')},00</h2>
+            <div className={`bg-green-50 text-green-600 text-xs font-semibold px-2 py-1 rounded-full transition-all duration-300 ${blurClass}`}>+ R 12,450,00</div>
             <Info className="w-4 h-4 text-gray-300" />
           </div>
         </div>
@@ -36,9 +38,9 @@ export const HomeView: React.FC<HomeViewProps> = ({ navigateTo, sharedGoals }) =
 
       {/* Main Accounts */}
       <div className="space-y-3">
-        <AccountListItem icon={<PiggyBank className="w-5 h-5 text-gray-700"/>} iconBg="bg-gray-100" title="Cash" balance="R 12,400,00" />
-        <AccountListItem icon={<Leaf className="w-5 h-5 text-green-600"/>} iconBg="bg-green-50" title="Emergency savings" balance="R 45,000,00" />
-        <AccountListItem icon={<LayoutGrid className="w-5 h-5 text-blue-500"/>} iconBg="bg-blue-50" title="Tax-free investments" balance="R 67,600,00" />
+        <AccountListItem icon={<PiggyBank className="w-5 h-5 text-gray-700"/>} iconBg="bg-gray-100" title="Cash" balance="R 12,400,00" isPrivateMode={isPrivateMode} />
+        <AccountListItem icon={<Leaf className="w-5 h-5 text-green-600"/>} iconBg="bg-green-50" title="Emergency Fund" balance="R 45,000,00" isPrivateMode={isPrivateMode} />
+        <AccountListItem icon={<LayoutGrid className="w-5 h-5 text-blue-500"/>} iconBg="bg-blue-50" title="Tax-free investments" balance="R 67,600,00" isPrivateMode={isPrivateMode} />
       </div>
 
       {/* Shared Goals Preview */}
@@ -77,7 +79,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ navigateTo, sharedGoals }) =
                 </div>
               </div>
               <div className="text-right">
-                <div className="text-sm font-semibold text-gray-900">R {goal.totalSaved.toLocaleString()}</div>
+                <div className={`text-sm font-semibold text-gray-900 transition-all duration-300 ${blurClass}`}>R {goal.totalSaved.toLocaleString()}</div>
                 <div className="text-[10px] text-gray-400">Total saved</div>
               </div>
             </div>
@@ -109,7 +111,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ navigateTo, sharedGoals }) =
   );
 };
 
-const AccountListItem = ({ icon, iconBg, title, balance }: { icon: React.ReactNode, iconBg: string, title: string, balance: string }) => (
+const AccountListItem = ({ icon, iconBg, title, balance, isPrivateMode }: { icon: React.ReactNode, iconBg: string, title: string, balance: string, isPrivateMode: boolean }) => (
   <div className="bg-white p-4 rounded-[20px] fynbos-shadow border border-gray-50 flex items-center justify-between">
     <div className="flex items-center gap-3">
       <div className={`w-10 h-10 rounded-full flex items-center justify-center ${iconBg}`}>
@@ -117,6 +119,6 @@ const AccountListItem = ({ icon, iconBg, title, balance }: { icon: React.ReactNo
       </div>
       <span className="text-sm font-semibold text-gray-800">{title}</span>
     </div>
-    <span className="text-sm font-semibold text-gray-900">{balance}</span>
+    <span className={`text-sm font-semibold text-gray-900 transition-all duration-300 ${isPrivateMode ? "blur-md select-none opacity-90" : ""}`}>{balance}</span>
   </div>
 );

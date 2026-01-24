@@ -13,7 +13,7 @@ export const InviteFlow: React.FC<InviteFlowProps> = ({ goal, onBack, onInvite }
   const [searchTerm, setSearchTerm] = useState('');
   
   const mockContacts = [
-    { name: 'Shanice Jaganathan', initials: 'SJ', phone: '082 555 1234', color: 'bg-purple-500' },
+    { name: 'Caleb Pillay', initials: 'CP', phone: '082 555 1234', color: 'bg-purple-500' },
     { name: 'Deklan Pillay', initials: 'DP', phone: '071 222 9988', color: 'bg-orange-500' },
     { name: 'Simeon Smit', initials: 'SS', phone: '063 444 3322', color: 'bg-green-500' },
   ];
@@ -24,7 +24,6 @@ export const InviteFlow: React.FC<InviteFlowProps> = ({ goal, onBack, onInvite }
       name: contact.name.split(' ')[0],
       initials: contact.initials,
       contribution: 0,
-      role: 'contributor',
       color: contact.color
     };
     onInvite(newMember);
@@ -36,7 +35,7 @@ export const InviteFlow: React.FC<InviteFlowProps> = ({ goal, onBack, onInvite }
         <button onClick={onBack} className="p-2 -ml-2 text-gray-600 hover:bg-gray-100 rounded-full transition-colors">
           <ChevronLeft className="w-6 h-6" />
         </button>
-        <h1 className="ml-2 text-lg font-bold text-gray-900">Invite Contributor</h1>
+        <h1 className="ml-2 text-lg font-bold text-gray-900">Invite</h1>
       </div>
 
       <div className="px-6 pt-4 space-y-6">
@@ -75,7 +74,7 @@ export const InviteFlow: React.FC<InviteFlowProps> = ({ goal, onBack, onInvite }
         </div>
 
         <div className="space-y-4">
-          <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest pl-1">Suggested from Fynbos</h3>
+          <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest pl-1">SUGGESTED FROM FYNBOS MONEY</h3>
           <div className="space-y-2">
             {mockContacts.map(contact => (
               <div 

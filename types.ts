@@ -1,22 +1,21 @@
 
-export type MemberRole = 'admin' | 'contributor';
-
 export interface Member {
   id: string;
   name: string;
   initials: string;
   contribution: number;
-  role: MemberRole;
   color: string;
 }
 
-export interface Contribution {
+export type TransactionType = 'contribution' | 'withdrawal';
+
+export interface Transaction {
   id: string;
-  memberId: string;
+  goalId: string;
   memberName: string;
   amount: number;
+  type: TransactionType;
   date: string;
-  goalId: string;
 }
 
 export interface SharedGoal {
@@ -30,4 +29,4 @@ export interface SharedGoal {
   type: 'shared';
 }
 
-export type View = 'home' | 'accounts' | 'transactions' | 'automation' | 'create-goal' | 'goal-detail' | 'invite-member' | 'adjust-goal' | 'account-type';
+export type View = 'home' | 'accounts' | 'transactions' | 'automation' | 'create-goal' | 'goal-detail' | 'invite-member' | 'adjust-goal' | 'account-type' | 'add-money' | 'withdraw' | 'history';
